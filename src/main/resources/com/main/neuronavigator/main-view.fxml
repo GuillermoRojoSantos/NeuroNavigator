@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="1542.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.neuronavigator.MainController">
+    <center>
+        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="1542.0" BorderPane.alignment="TOP_CENTER">
+            <children>
+                <TableView fx:id="table_pacients" onMouseClicked="#getPatient" prefHeight="496.0" prefWidth="801.0" HBox.hgrow="SOMETIMES">
+                    <columns>
+                        <TableColumn fx:id="p_name" prefWidth="75.0" text="%mainTable_name" />
+                        <TableColumn fx:id="p_lastName" prefWidth="75.0" text="%mainTable_lastName" />
+                        <TableColumn fx:id="p_phone" minWidth="6.0" prefWidth="97.0" text="%mainTable_pNumber" />
+                        <TableColumn fx:id="p_phoneDad" prefWidth="104.0" text="%mainTable_fNumber" />
+                        <TableColumn fx:id="p_phoneMum" minWidth="3.0" prefWidth="3.0" text="%mainTable_mNumber" />
+                        <TableColumn fx:id="p_motive" prefWidth="272.0" text="%mainTable_motive" />
+                    </columns>
+                    <HBox.margin>
+                        <Insets left="40.0" right="150.0" top="150.0" />
+                    </HBox.margin>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+                <TableView fx:id="table_docs" prefHeight="280.0" prefWidth="471.0" HBox.hgrow="SOMETIMES">
+                    <columns>
+                        <TableColumn fx:id="doc_name" maxWidth="500000.0" minWidth="-1.0" prefWidth="245" text="%fileTable_name" />
+                        <TableColumn fx:id="doc_update" maxWidth="500000.0" minWidth="-1.0" prefWidth="245" text="%fileTable_lastUsage" />
+                    </columns>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <HBox.margin>
+                        <Insets right="40.0" top="259.0" />
+                    </HBox.margin>
+                </TableView>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </HBox>
+    </center>
+    <top>
+        <MenuBar blendMode="MULTIPLY" nodeOrientation="LEFT_TO_RIGHT" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="%menu_file">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%menu_I_close">
+                            <accelerator>
+                                <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#addPatient" text="%menu_I_add" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menu_edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%menu_I_delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menu_help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openConfig" text="%menu_I_config" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <bottom>
+        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+    </bottom>
+</BorderPane>

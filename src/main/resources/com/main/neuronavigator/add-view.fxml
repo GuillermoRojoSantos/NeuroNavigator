@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="1073.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.neuronavigator.AddController">
+   <children>
+      <Line endX="1073.0" endY="250.0" startY="250.0" />
+      <Group layoutX="14.0" layoutY="14.0">
+         <children>
+            <TextField fx:id="txtName" layoutY="26.0" />
+            <Text layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_name" />
+         </children>
+      </Group>
+      <Group layoutX="226.0" layoutY="15.0">
+         <children>
+            <Text layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_lastName" />
+            <TextField fx:id="txtLastName" layoutY="27.0" />
+         </children>
+      </Group>
+      <Group layoutX="438.0" layoutY="14.0">
+         <children>
+            <DatePicker fx:id="dateBirth" layoutY="27.0" />
+            <Text layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_dateBirth" />
+         </children>
+      </Group>
+      <Group layoutX="14.0" layoutY="94.0">
+         <children>
+            <Text layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_adress" />
+            <TextField fx:id="txtAddress" layoutY="27.0" prefHeight="25.0" prefWidth="362.0" />
+         </children>
+      </Group>
+      <Group layoutX="438.0" layoutY="93.05078125">
+         <children>
+            <Text layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_ocupation" />
+            <TextField fx:id="txtOccupation" layoutY="27.94921875" prefHeight="25.0" prefWidth="175.0" />
+         </children>
+      </Group>
+      <Group layoutX="671.0" layoutY="15.05078125">
+         <children>
+            <Text layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_reasonConsultation" />
+            <TextArea fx:id="txtReason" layoutY="25.94921875" prefHeight="105.0" prefWidth="384.0" wrapText="true" />
+         </children>
+      </Group>
+      <CheckBox fx:id="boolActualDate" layoutX="282.0" layoutY="200.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="254.0" text="%add_SetActualDate" AnchorPane.rightAnchor="535.0" AnchorPane.topAnchor="200.0" />
+      <Group layoutX="13.0" layoutY="159.0">
+         <children>
+            <TextField fx:id="txtPhone" layoutX="1.0" layoutY="36.94921875" />
+            <Text layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_phone" />
+         </children>
+      </Group>
+      <Group layoutX="671.0" layoutY="173.0">
+         <children>
+            <TextField fx:id="txtDerivedBy" layoutY="27.0" prefHeight="25.0" prefWidth="384.0" />
+            <Text layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_derivedBy" />
+         </children>
+      </Group>
+      <TitledPane fx:id="secondaryData" expanded="false" layoutX="14.0" layoutY="266.0" prefHeight="249.0" prefWidth="1045.0" text="%add_secondaryData" AnchorPane.topAnchor="266.0">
+         <content>
+            <AnchorPane prefHeight="337.0" prefWidth="1041.0">
+               <children>
+                  <Group layoutX="541.0" layoutY="44.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%add_observations" />
+                        <TextArea fx:id="txtObservations" layoutY="12.0" prefHeight="188.0" prefWidth="384.0" wrapText="true" />
+                     </children>
+                  </Group>
+                  <Group layoutX="119.0" layoutY="124.0" AnchorPane.topAnchor="119.05078125">
+                     <children>
+                        <TextField fx:id="txtPhoneM" layoutY="36.94921875" />
+                        <Text layoutY="8.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_phoneMother" wrappingWidth="148.841796875" />
+                     </children>
+                  </Group>
+                  <Group layoutX="331.0" layoutY="122.0" AnchorPane.topAnchor="118.05078125">
+                     <children>
+                        <TextField fx:id="txtPhoneF" layoutY="36.94921875" />
+                        <Text layoutY="9.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_phoneFather" wrappingWidth="148.841796875" />
+                     </children>
+                  </Group>
+                  <Group layoutX="119.0" layoutY="30.0">
+                     <children>
+                        <TextField fx:id="txtNMother" layoutY="36.94921875" />
+                        <Text layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_nameMother" wrappingWidth="147.841796875" />
+                     </children>
+                  </Group>
+                  <Group layoutX="331.0" layoutY="28.0">
+                     <children>
+                        <TextField fx:id="txtNFather" layoutY="36.94921875" />
+                        <Text layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_nameFather" wrappingWidth="147.841796875" />
+                     </children>
+                  </Group>
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+      <Button fx:id="btnSave" layoutX="-13.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#savePatient" text="%add_save" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="308.0" />
+      <Button fx:id="btnReset" layoutX="138.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#reset" text="%add_reset" AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="308.0" />
+   </children>
+</AnchorPane>

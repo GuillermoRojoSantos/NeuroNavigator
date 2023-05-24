@@ -1,0 +1,7 @@
+package com.main.neuronavigator;
+
+public class Main {
+    public static void main(String[] args) {
+        MainApplication.main(args);
+    }
+}
