@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Patient implements Serializable {
     public ObjectId _id;
     public String name;
     public String lastName;
-    public Date birth;
+    public LocalDate birth;
     public Integer age;
     public String address;
     public String phone;
@@ -27,7 +28,7 @@ public class Patient implements Serializable {
     public String dadName;
     public String sender;
     public String reason;
-    public List<LocalDate> evaluations;
+    public List<LocalDate> evaluations=new ArrayList<LocalDate>();
     public String observations;
 
 
@@ -51,11 +52,11 @@ public class Patient implements Serializable {
         this.lastName = lastName;
     }
 
-    public Date getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
     }
 
@@ -145,6 +146,10 @@ public class Patient implements Serializable {
 
     public void setEvaluations(List<LocalDate> evaluations) {
         this.evaluations = evaluations;
+    }
+
+    public void addEvaluation(LocalDate evaluation) {
+        this.evaluations.add(evaluation);
     }
 
     public String getObservations() {
