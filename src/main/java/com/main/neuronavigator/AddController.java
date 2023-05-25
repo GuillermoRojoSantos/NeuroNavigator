@@ -2,10 +2,12 @@ package com.main.neuronavigator;
 
 import com.main.neuronavigator.DAOMongoDB.PatientDAOMongoDB;
 import com.main.neuronavigator.models.Patient;
+import com.mongodb.client.FindIterable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import net.synedra.validatorfx.Validator;
 
 import java.net.URL;
@@ -19,6 +21,8 @@ public class AddController implements Initializable {
     private LocalDate today = LocalDate.now();
     private static Alert alert = new Alert(Alert.AlertType.NONE);
     private PatientDAOMongoDB patientDAOMongoDB;
+
+    private PacientesListener pacientesListener;
 
     @FXML
     private CheckBox boolActualDate;
@@ -73,7 +77,20 @@ public class AddController implements Initializable {
 
     @FXML
     void reset(MouseEvent event) {
-
+        txtName.setText("");
+        txtLastName.setText("");
+        dateBirth.setValue(null);
+        txtAddress.setText("");
+        txtPhone.setText("");
+        txtPhoneM.setText("");
+        txtPhoneF.setText("");
+        txtOccupation.setText("");
+        txtNMother.setText("");
+        txtNFather.setText("");
+        txtDerivedBy.setText("");
+        txtReason.setText("");
+        txtObservations.setText("");
+        boolActualDate.setSelected(false);
     }
 
     @FXML
@@ -99,10 +116,15 @@ public class AddController implements Initializable {
                 patient.addEvaluation(today);
             }
             if (patientDAOMongoDB.addPatient(patient).getInsertedId() != null) {
+                pacientesListener.actualizarTabla();
                 alert.setAlertType(Alert.AlertType.CONFIRMATION);
                 alert.setTitle(MainApplication.resourceBundle.getString("add_succesfullTitle"));
                 alert.setContentText(MainApplication.resourceBundle.getString("add_succesfullContent"));
                 alert.show();
+                alert.setOnCloseRequest(e -> {
+                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.close();
+                });
             }
         } else {
             alert.setAlertType(Alert.AlertType.WARNING);
@@ -191,10 +213,18 @@ public class AddController implements Initializable {
         /*Date validator*/
         validator.createCheck().dependsOn("date", dateBirth.valueProperty()).withMethod(c -> {
             LocalDate userDate = c.get("date");
-            if (userDate.isAfter(today)) {
-                c.error(MainApplication.resourceBundle.getString("add_errors_date1"));
+            try {
+                if (userDate.isAfter(today)) {
+                    c.error(MainApplication.resourceBundle.getString("add_errors_date1"));
+                }
+            } catch (Exception e) {
+                c.error(MainApplication.resourceBundle.getString("add_errors_emptyField"));
             }
         }).decorates(dateBirth).immediate();
+    }
+
+    public void setPacientesListener(PacientesListener pacientesListener) {
+        this.pacientesListener = pacientesListener;
     }
 
 }

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="679.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.neuronavigator.InfoPatientController">
+   <children>
+      <Group layoutX="60.0" layoutY="100.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%add_phone">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="telefono" layoutY="24.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+      <Group layoutX="533.0" layoutY="179.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%add_adress" wrappingWidth="123.2314453125">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="direccion" layoutY="24.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="451.205078125">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+      <Group layoutX="61.0" layoutY="180.0" />
+      <Text fx:id="nameLastName" layoutX="334.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre y apellidos del paciente" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Group layoutX="276.0" layoutY="97.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%add_evaluations">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <ListView fx:id="listaEvaluaciones" layoutY="20.0" prefHeight="264.0" prefWidth="202.0" />
+         </children>
+      </Group>
+      <Group layoutX="60.0" layoutY="309.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%add_dateBirth">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="birth" layoutY="24.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+      <Group layoutX="58.0" layoutY="579.0">
+         <children>
+            <Text fx:id="observaciones" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="observations" wrappingWidth="896.8203125">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text layoutX="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_observations">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+      <Line endX="724.9999389648438" endY="-24.0" layoutX="286.0" layoutY="424.0" startX="-286.0" startY="-24.0" />
+      <Group layoutX="60.0" layoutY="232.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%add_ocupation">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="ocupacion" layoutY="24.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+      <Line endX="910.5" layoutX="101.0" layoutY="545.0" startX="-100.0" />
+      <Group layoutX="60.0" layoutY="180.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%add_age">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="edad" layoutX="82.0" layoutY="-1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+      <Text layoutX="496.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_phoneFather">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="numeroPadre" layoutX="807.0" layoutY="513.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="496.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_phoneMother">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="numeroMadre" layoutX="807.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="60.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_nameFather">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="nombrePasdre" layoutX="252.0" layoutY="513.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="61.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_nameMother">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="nombreMadre" layoutX="252.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Group layoutX="533.0" layoutY="256.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%add_reasonConsultation" wrappingWidth="221.2314453125">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="reason" layoutY="24.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="451.205078125">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+   </children>
+</AnchorPane>
