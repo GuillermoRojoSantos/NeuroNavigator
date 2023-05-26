@@ -60,8 +60,16 @@ public class MainController implements Initializable, PacientesListener {
     private TableView<Patient> table_patients;
 
     @FXML
+    private MenuItem itemDelete;
+
+    @FXML
+    private MenuItem itemUpdate;
+
+
+    @FXML
     void getPatient(MouseEvent event) {
         if (table_patients.getSelectionModel().getSelectedItems().size() == 1) {
+            itemUpdate.setDisable(false);
             switch (event.getClickCount()){
                 case 1->{
                     patientHolder=table_patients.getSelectionModel().getSelectedItems().get(0);
@@ -69,6 +77,7 @@ public class MainController implements Initializable, PacientesListener {
                    /*Usar una instancia del controlador SFTP para traerte los documentos necesarios a través del ID del paciente*/
                 }
                 case 2->{
+
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("infoPatient-view.fxml"), MainApplication.resourceBundle);
                         Parent root = fxmlLoader.load();
@@ -87,6 +96,8 @@ public class MainController implements Initializable, PacientesListener {
 
                 }
             }
+        } else if (table_patients.getSelectionModel().getSelectedItems().size() == 2) {
+            itemUpdate.setDisable(true);
         }
     }
 
@@ -144,7 +155,7 @@ public class MainController implements Initializable, PacientesListener {
         p_phoneDad.setCellValueFactory(new PropertyValueFactory<>("phoneD"));
         p_motive.setCellValueFactory(new PropertyValueFactory<>("reason"));
         doc_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        doc_update.setCellValueFactory(new PropertyValueFactory<>("update"));
+        doc_update.setCellValueFactory(new PropertyValueFactory<>("menu_I_update"));
         FindIterable<Patient> x = patientDAOMongoDB.getAll();
         for (Patient p : x) {
             table_patients.getItems().add(p);

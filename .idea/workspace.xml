@@ -9,10 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28705f35-9d43-414b-bcb0-d965b183f6ff" name="Changes" comment="">
+    <list default="true" id="28705f35-9d43-414b-bcb0-d965b183f6ff" name="Changes" comment="Ahora la tabla se actualiza sola al añadir un paciente&#10;Añadido detalles de paciente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/AddController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/models/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/models/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/main-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/strings_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/strings_es.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_es.properties" afterDir="false" />
@@ -26,15 +26,28 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
-        <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="eab077dd-1d1b-492d-8050-cdc90de787ae" />
+        <option name="url" value="https://github.com/GuillermoRojoSantos/NeuroNavigator.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="ProjectId" id="2O3KfaOVZGq9TwKUqxF3p8DT9Hv" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -53,7 +66,7 @@
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_directory_selection": "D:/Programacion/TFG_Tests/NeuroNavigator/src/main/java/com/main/neuronavigator",
+    "last_directory_selection": "D:/Programacion/TFG_Tests/NeuroNavigator/src/main/resources/com/main/neuronavigator",
     "last_opened_file_path": "E:/IDEA/IntelliJ/CRUD_With_Hibernate",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -72,6 +85,7 @@
       <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\java\com\main\neuronavigator" />
       <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\resources\com\main\neuronavigator" />
       <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\resources" />
     </key>
@@ -202,7 +216,24 @@
       <workItem from="1684927806975" duration="6663000" />
       <workItem from="1684935292008" duration="205000" />
       <workItem from="1684949673430" duration="7919000" />
+      <workItem from="1685007436515" duration="8035000" />
+      <workItem from="1685033394836" duration="12739000" />
     </task>
+    <task id="LOCAL-00001" summary="Añadido contenido para la internacionalización de la aplicación y funcionalidad de añadir paciente con verificación de campos.">
+      <created>1685007690702</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1685007690702</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Ahora la tabla se actualiza sola al añadir un paciente&#10;Añadido detalles de paciente">
+      <created>1685058874017</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1685058874017</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,5 +241,10 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="dependencySupport" implementationName="java:org.openjfx:javafx-base" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Añadido contenido para la internacionalización de la aplicación y funcionalidad de añadir paciente con verificación de campos." />
+    <MESSAGE value="Ahora la tabla se actualiza sola al añadir un paciente&#10;Añadido detalles de paciente" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ahora la tabla se actualiza sola al añadir un paciente&#10;Añadido detalles de paciente" />
   </component>
 </project>

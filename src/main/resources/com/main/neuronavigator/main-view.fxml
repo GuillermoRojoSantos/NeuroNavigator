@@ -68,7 +68,8 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu_edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="%menu_I_delete" />
+                        <MenuItem fx:id="itemDelete" mnemonicParsing="false" text="%menu_I_delete" />
+                  <MenuItem fx:id="itemUpdate" mnemonicParsing="false" text="%menu_I_update" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu_help">
