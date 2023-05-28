@@ -9,22 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28705f35-9d43-414b-bcb0-d965b183f6ff" name="Changes" comment="Ahora la tabla se actualiza sola al añadir un paciente&#10;Añadido detalles de paciente">
+    <list default="true" id="28705f35-9d43-414b-bcb0-d965b183f6ff" name="Changes" comment="Añadido verificador de conexión a la bbdd de MongoDB">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/AddController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/ConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/ConfigController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/InfoPatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/InfoPatientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/add-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/add-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/config-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/config-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/infoPatient-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/infoPatient-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/ConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/ConfigController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/main-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/strings_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/strings_es.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_es.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/strings_fr.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_fr.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +221,7 @@
       <workItem from="1685033394836" duration="12739000" />
       <workItem from="1685176498973" duration="14513000" />
       <workItem from="1685220955640" duration="1813000" />
-      <workItem from="1685267517045" duration="7948000" />
+      <workItem from="1685267517045" duration="13635000" />
     </task>
     <task id="LOCAL-00001" summary="Añadido contenido para la internacionalización de la aplicación y funcionalidad de añadir paciente con verificación de campos.">
       <created>1685007690702</created>
@@ -245,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685058874017</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Añadido verificador de conexión a la bbdd de MongoDB">
+      <created>1685287868868</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1685287868868</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,9 +253,21 @@
   <component name="UnknownFeatures">
     <option featureType="dependencySupport" implementationName="java:org.openjfx:javafx-base" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Añadido contenido para la internacionalización de la aplicación y funcionalidad de añadir paciente con verificación de campos." />
     <MESSAGE value="Ahora la tabla se actualiza sola al añadir un paciente&#10;Añadido detalles de paciente" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ahora la tabla se actualiza sola al añadir un paciente&#10;Añadido detalles de paciente" />
+    <MESSAGE value="Añadido verificador de conexión a la bbdd de MongoDB" />
+    <option name="LAST_COMMIT_MESSAGE" value="Añadido verificador de conexión a la bbdd de MongoDB" />
   </component>
 </project>

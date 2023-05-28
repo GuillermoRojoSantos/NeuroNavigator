@@ -249,7 +249,7 @@ public class ConfigController implements Initializable {
             case "Espagnol":
             case "Spanish":
                 //NECESITAS EL ABSOLUTE PATH
-                try (FileOutputStream out = new FileOutputStream("./src/main/resources/config.properties")) {
+                try (FileOutputStream out = new FileOutputStream(MainApplication.propertiesPath)) {
                     MainApplication.properties.setProperty("lang", "es");
                     MainApplication.properties.setProperty("country", "ES");
                     MainApplication.properties.store(out, null);
@@ -260,7 +260,7 @@ public class ConfigController implements Initializable {
             case "Francés":
             case "Français":
             case "French":
-                try (FileOutputStream out = new FileOutputStream("./src/main/resources/config.properties")) {
+                try (FileOutputStream out = new FileOutputStream(MainApplication.propertiesPath)) {
                     MainApplication.properties.setProperty("lang", "fr");
                     MainApplication.properties.setProperty("country", "FR");
                     MainApplication.properties.store(out, null);
@@ -272,7 +272,7 @@ public class ConfigController implements Initializable {
             case "Inglés":
             case "Anglais":
             case "English":
-                try (FileOutputStream out = new FileOutputStream("./src/main/resources/config.properties")) {
+                try (FileOutputStream out = new FileOutputStream(MainApplication.propertiesPath)) {
                     MainApplication.properties.setProperty("lang", "en");
                     MainApplication.properties.setProperty("country", "EN");
                     MainApplication.properties.store(out, null);

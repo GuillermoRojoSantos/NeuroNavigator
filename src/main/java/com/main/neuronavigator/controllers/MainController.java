@@ -77,7 +77,7 @@ public class MainController implements Initializable, PacientesListener {
                 case 1->{
                     patientHolder=table_patients.getSelectionModel().getSelectedItems().get(0);
 
-                   /*Usar una instancia del controlador SFTP para traerte los documentos necesarios a través del ID del paciente*/
+                    /*Usar una instancia del controlador SFTP para traerte los documentos necesarios a través del ID del paciente*/
                 }
                 case 2->{
 
@@ -149,10 +149,27 @@ public class MainController implements Initializable, PacientesListener {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        p_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        p_lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        p_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        p_phoneMum.setCellValueFactory(new PropertyValueFactory<>("phoneM"));
+        p_phoneDad.setCellValueFactory(new PropertyValueFactory<>("phoneD"));
+        p_motive.setCellValueFactory(new PropertyValueFactory<>("reason"));
+        doc_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        doc_update.setCellValueFactory(new PropertyValueFactory<>("menu_I_update"));
+
+        /*Permite escoger varios elementos de las dos tablas*/
+        table_patients.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        table_docs.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         if(Objects.equals(MainApplication.properties.getProperty("configured"), "true")){
-            loadIfCongif();
-        }else {
-            loadConfig();
+            patientDAOMongoDB = new PatientDAOMongoDB(
+                    "mongodb+srv://Admin_grs:guirojo28isthenewDeltha@neuronavigatormongodb.dacxkdt.mongodb.net/?retryWrites=true&w=majority",
+                    "NeuroNavigator", "Patients");
+            FindIterable<Patient> x = patientDAOMongoDB.getAll();
+            for (Patient p : x) {
+                table_patients.getItems().add(p);
+            }
         }
     }
 
@@ -162,45 +179,6 @@ public class MainController implements Initializable, PacientesListener {
         FindIterable<Patient> x = patientDAOMongoDB.getAll();
         for (Patient p : x) {
             table_patients.getItems().add(p);
-        }
-    }
-
-    private void loadIfCongif(){
-        patientDAOMongoDB = new PatientDAOMongoDB(
-                "mongodb+srv://Admin_grs:guirojo28isthenewDeltha@neuronavigatormongodb.dacxkdt.mongodb.net/?retryWrites=true&w=majority",
-                "NeuroNavigator", "Patients");
-        p_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        p_lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        p_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        p_phoneMum.setCellValueFactory(new PropertyValueFactory<>("phoneM"));
-        p_phoneDad.setCellValueFactory(new PropertyValueFactory<>("phoneD"));
-        p_motive.setCellValueFactory(new PropertyValueFactory<>("reason"));
-        doc_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        doc_update.setCellValueFactory(new PropertyValueFactory<>("menu_I_update"));
-        FindIterable<Patient> x = patientDAOMongoDB.getAll();
-        for (Patient p : x) {
-            table_patients.getItems().add(p);
-        }
-        /*Permite escoger varios elementos de las dos tablas*/
-        table_patients.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        table_docs.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    }
-
-    private void loadConfig(){
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("config-view.fxml"), MainApplication.resourceBundle);
-            Stage stage = new Stage();
-            Scene scene = new Scene(fxmlLoader.load(), 1359, 650);
-            stage.setTitle(MainApplication.resourceBundle.getString("config_windowTitle"));
-            stage.getIcons().add(new Image(String.valueOf(MainApplication.class.getResource("NeuroNavigator_Logo.png"))));
-            stage.setScene(scene);
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.setMinWidth(1359);
-            stage.setMinHeight(650);
-            stage.setResizable(false);
-            stage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }
