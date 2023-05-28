@@ -1,11 +1,13 @@
 package com.main.neuronavigator;
 
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
+import com.mongodb.*;
 import com.mongodb.client.*;
 import com.mongodb.client.result.DeleteResult;
+import javafx.scene.control.Alert;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+
+import java.util.ArrayList;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 
@@ -23,12 +25,14 @@ public class test {
                 .build();
 
         try (MongoClient mongoClient = MongoClients.create(clientSettings)) {
-            MongoDatabase database = mongoClient.getDatabase("test");
+            System.out.println(mongoClient.listDatabaseNames().into(new ArrayList<>()).contains("bob"));
+
+            /*MongoDatabase database = mongoClient.getDatabase("test");
             MongoCollection<Libro> libros = database.getCollection("libro", Libro.class);
             FindIterable<Libro> result = libros.find();
             for (Libro libro : result){
                 System.out.println(libro.toString());
-            }
+            }*/
 
 
             /*Libro libro = new Libro("Beastars", "Paru Itagaki");

@@ -11,7 +11,15 @@
   <component name="ChangeListManager">
     <list default="true" id="28705f35-9d43-414b-bcb0-d965b183f6ff" name="Changes" comment="Ahora la tabla se actualiza sola al añadir un paciente&#10;Añadido detalles de paciente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/AddController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/ConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/ConfigController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/InfoPatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/InfoPatientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/add-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/add-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/config-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/config-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/infoPatient-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/infoPatient-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/main-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/strings_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_en.properties" afterDir="false" />
@@ -55,33 +63,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_directory_selection": "D:/Programacion/TFG_Tests/NeuroNavigator/src/main/resources/com/main/neuronavigator",
-    "last_opened_file_path": "E:/IDEA/IntelliJ/CRUD_With_Hibernate",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.20605469",
-    "project.structure.side.proportion": "0.27586207",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_directory_selection&quot;: &quot;D:/Programacion/TFG_Tests/NeuroNavigator/src/main/resources/com/main/neuronavigator&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Programacion/TFG_Tests/NeuroNavigator/src/main/resources/com/main/neuronavigator&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.20605469&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.27586207&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\resources\com\main\neuronavigator" />
       <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -113,7 +122,7 @@
       <module name="NeuroNavigator" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.main.neuronavigator.*" />
+          <option name="PATTERN" value="com.main.neuronavigator.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -126,7 +135,7 @@
       <module name="NeuroNavigator" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.main.neuronavigator.*" />
+          <option name="PATTERN" value="com.main.neuronavigator.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -139,7 +148,7 @@
       <module name="NeuroNavigator" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.main.neuronavigator.*" />
+          <option name="PATTERN" value="com.main.neuronavigator.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -152,7 +161,7 @@
       <module name="NeuroNavigator" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.main.neuronavigator.*" />
+          <option name="PATTERN" value="com.main.neuronavigator.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -218,6 +227,9 @@
       <workItem from="1684949673430" duration="7919000" />
       <workItem from="1685007436515" duration="8035000" />
       <workItem from="1685033394836" duration="12739000" />
+      <workItem from="1685176498973" duration="14513000" />
+      <workItem from="1685220955640" duration="1813000" />
+      <workItem from="1685267517045" duration="7948000" />
     </task>
     <task id="LOCAL-00001" summary="Añadido contenido para la internacionalización de la aplicación y funcionalidad de añadir paciente con verificación de campos.">
       <created>1685007690702</created>

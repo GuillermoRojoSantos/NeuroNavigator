@@ -1,9 +1,8 @@
-package com.main.neuronavigator;
+package com.main.neuronavigator.controllers;
 
 import com.main.neuronavigator.models.Patient;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 

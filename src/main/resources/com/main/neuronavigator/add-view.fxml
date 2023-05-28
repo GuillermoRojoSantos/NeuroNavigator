@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="1073.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.neuronavigator.AddController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="1073.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.neuronavigator.controllers.AddController">
    <children>
       <Line endX="1073.0" endY="250.0" startY="250.0" />
       <Group layoutX="14.0" layoutY="14.0">

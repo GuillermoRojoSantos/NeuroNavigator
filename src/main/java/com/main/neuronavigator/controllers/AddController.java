@@ -1,6 +1,8 @@
-package com.main.neuronavigator;
+package com.main.neuronavigator.controllers;
 
 import com.main.neuronavigator.DAOMongoDB.PatientDAOMongoDB;
+import com.main.neuronavigator.MainApplication;
+import com.main.neuronavigator.PacientesListener;
 import com.main.neuronavigator.models.Patient;
 import com.mongodb.client.FindIterable;
 import javafx.fxml.FXML;

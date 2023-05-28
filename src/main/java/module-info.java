@@ -15,4 +15,6 @@ module com.main.neuronavigator {
     opens com.main.neuronavigator to javafx.fxml;
     opens com.main.neuronavigator.models;
     exports com.main.neuronavigator;
+    exports com.main.neuronavigator.controllers;
+    opens com.main.neuronavigator.controllers to javafx.fxml;
 }

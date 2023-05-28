@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="679.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.neuronavigator.InfoPatientController">
+<AnchorPane prefHeight="679.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.neuronavigator.controllers.InfoPatientController">
    <children>
       <Group layoutX="60.0" layoutY="100.0">
          <children>

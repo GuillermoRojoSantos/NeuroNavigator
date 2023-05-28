@@ -1,6 +1,8 @@
-package com.main.neuronavigator;
+package com.main.neuronavigator.controllers;
 
 import com.main.neuronavigator.DAOMongoDB.PatientDAOMongoDB;
+import com.main.neuronavigator.MainApplication;
+import com.main.neuronavigator.PacientesListener;
 import com.main.neuronavigator.models.DocFTP;
 import com.main.neuronavigator.models.Patient;
 import com.mongodb.client.FindIterable;
@@ -22,6 +24,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable, PacientesListener {
@@ -79,7 +82,7 @@ public class MainController implements Initializable, PacientesListener {
                 case 2->{
 
                     try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("infoPatient-view.fxml"), MainApplication.resourceBundle);
+                        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("infoPatient-view.fxml"), MainApplication.resourceBundle);
                         Parent root = fxmlLoader.load();
                         Stage stage = new Stage();
                         stage.setTitle(MainApplication.resourceBundle.getString("add_windowTitle1"));
@@ -104,7 +107,8 @@ public class MainController implements Initializable, PacientesListener {
     @FXML
     void addPatient(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-view.fxml"), MainApplication.resourceBundle);
+            //print the path of the resource from the class loader
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("add-view.fxml"), MainApplication.resourceBundle);
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle(MainApplication.resourceBundle.getString("add_windowTitle"));
@@ -126,7 +130,7 @@ public class MainController implements Initializable, PacientesListener {
     @FXML
     void openConfig(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("config-view.fxml"), MainApplication.resourceBundle);
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("config-view.fxml"), MainApplication.resourceBundle);
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle(MainApplication.resourceBundle.getString("config_windowTitle"));
@@ -145,6 +149,23 @@ public class MainController implements Initializable, PacientesListener {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if(Objects.equals(MainApplication.properties.getProperty("configured"), "true")){
+            loadIfCongif();
+        }else {
+            loadConfig();
+        }
+    }
+
+    @Override
+    public void actualizarTabla() {
+        table_patients.getItems().clear();
+        FindIterable<Patient> x = patientDAOMongoDB.getAll();
+        for (Patient p : x) {
+            table_patients.getItems().add(p);
+        }
+    }
+
+    private void loadIfCongif(){
         patientDAOMongoDB = new PatientDAOMongoDB(
                 "mongodb+srv://Admin_grs:guirojo28isthenewDeltha@neuronavigatormongodb.dacxkdt.mongodb.net/?retryWrites=true&w=majority",
                 "NeuroNavigator", "Patients");
@@ -165,13 +186,21 @@ public class MainController implements Initializable, PacientesListener {
         table_docs.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
-    @Override
-    public void actualizarTabla() {
-        table_patients.getItems().clear();
-        FindIterable<Patient> x = patientDAOMongoDB.getAll();
-        for (Patient p : x) {
-            table_patients.getItems().add(p);
+    private void loadConfig(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("config-view.fxml"), MainApplication.resourceBundle);
+            Stage stage = new Stage();
+            Scene scene = new Scene(fxmlLoader.load(), 1359, 650);
+            stage.setTitle(MainApplication.resourceBundle.getString("config_windowTitle"));
+            stage.getIcons().add(new Image(String.valueOf(MainApplication.class.getResource("NeuroNavigator_Logo.png"))));
+            stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setMinWidth(1359);
+            stage.setMinHeight(650);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
-
 }
