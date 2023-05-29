@@ -36,8 +36,7 @@
                 </TableView>
                 <TableView fx:id="table_docs" prefHeight="280.0" prefWidth="471.0" HBox.hgrow="SOMETIMES">
                     <columns>
-                        <TableColumn fx:id="doc_name" maxWidth="500000.0" minWidth="-1.0" prefWidth="245" text="%fileTable_name" />
-                        <TableColumn fx:id="doc_update" maxWidth="500000.0" minWidth="-1.0" prefWidth="245" text="%fileTable_lastUsage" />
+                        <TableColumn fx:id="doc_name" maxWidth="500000.0" minWidth="-1.0" prefWidth="490.0" text="%fileTable_name" />
                     </columns>
                     <opaqueInsets>
                         <Insets />
@@ -63,12 +62,14 @@
                             </accelerator>
                         </MenuItem>
                         <MenuItem mnemonicParsing="false" onAction="#addPatient" text="%menu_I_add" />
+                  <MenuItem fx:id="addFile" mnemonicParsing="false" onAction="#addAFile" text="%menu_I_addFiles" />
+                  <MenuItem fx:id="deleteFile" mnemonicParsing="false" onAction="#deleteAFile" text="%menu_I_deleteFiles" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu_edit">
                     <items>
-                        <MenuItem fx:id="itemDelete" mnemonicParsing="false" text="%menu_I_delete" />
-                  <MenuItem fx:id="itemUpdate" mnemonicParsing="false" text="%menu_I_update" />
+                  <MenuItem fx:id="itemUpdate" mnemonicParsing="false" onAction="#update" text="%menu_I_update" />
+                  <MenuItem fx:id="itemDelete" mnemonicParsing="false" onAction="#delete" text="%menu_I_delete" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu_help">

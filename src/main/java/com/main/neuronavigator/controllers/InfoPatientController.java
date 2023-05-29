@@ -55,7 +55,7 @@ public class InfoPatientController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.patient=MainController.patientHolder;
+        this.patient=MainController.patientsHolder.get(0);
         //fill the fields with the patient data
         nombrePasdre.setText(patient.getDadName());
         nombreMadre.setText(patient.getMomName());

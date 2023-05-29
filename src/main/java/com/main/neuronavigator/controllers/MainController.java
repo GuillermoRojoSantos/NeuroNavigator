@@ -1,42 +1,52 @@
 package com.main.neuronavigator.controllers;
 
 import com.main.neuronavigator.DAOMongoDB.PatientDAOMongoDB;
+import com.main.neuronavigator.FTPManager.FTPUtils;
+import com.main.neuronavigator.Main;
 import com.main.neuronavigator.MainApplication;
 import com.main.neuronavigator.PacientesListener;
-import com.main.neuronavigator.models.DocFTP;
 import com.main.neuronavigator.models.Patient;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.result.DeleteResult;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable, PacientesListener {
 
     private PatientDAOMongoDB patientDAOMongoDB;
-    public static Patient patientHolder = null;
+    private FTPUtils ftpUtils;
+    public static List<Patient> patientsHolder=new ArrayList<>();
+    private Alert alert = new Alert(Alert.AlertType.NONE);
 
     @FXML
-    private TableColumn<DocFTP, String> doc_name;
+    private MenuItem addFile;
 
     @FXML
-    private TableColumn<DocFTP, String> doc_update;
+    private MenuItem deleteFile;
+
+    @FXML
+    private TableColumn<String, String> doc_name;
 
     @FXML
     private TableColumn<Patient, String> p_motive;
@@ -57,7 +67,7 @@ public class MainController implements Initializable, PacientesListener {
     private TableColumn<Patient, String> p_lastName;
 
     @FXML
-    private TableView<DocFTP> table_docs;
+    private TableView<String> table_docs;
 
     @FXML
     private TableView<Patient> table_patients;
@@ -71,15 +81,23 @@ public class MainController implements Initializable, PacientesListener {
 
     @FXML
     void getPatient(MouseEvent event) {
+        patientsHolder.removeAll(patientsHolder);
         if (table_patients.getSelectionModel().getSelectedItems().size() == 1) {
             itemUpdate.setDisable(false);
-            switch (event.getClickCount()){
-                case 1->{
-                    patientHolder=table_patients.getSelectionModel().getSelectedItems().get(0);
+            switch (event.getClickCount()) {
+                case 1 -> {
+                    patientsHolder.add(0,table_patients.getSelectionModel().getSelectedItems().get(0));
 
                     /*Usar una instancia del controlador SFTP para traerte los documentos necesarios a través del ID del paciente*/
+                    try {
+                        ObservableList<String> documents = table_docs.getItems();
+                        documents.clear();
+                        documents.addAll(ftpUtils.listFiles(patientsHolder.get(0)));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-                case 2->{
+                case 2 -> {
 
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("infoPatient-view.fxml"), MainApplication.resourceBundle);
@@ -99,8 +117,9 @@ public class MainController implements Initializable, PacientesListener {
 
                 }
             }
-        } else if (table_patients.getSelectionModel().getSelectedItems().size() == 2) {
+        } else if (table_patients.getSelectionModel().getSelectedItems().size() >= 2) {
             itemUpdate.setDisable(true);
+            patientsHolder.addAll(table_patients.getSelectionModel().getSelectedItems());
         }
     }
 
@@ -128,6 +147,26 @@ public class MainController implements Initializable, PacientesListener {
     }
 
     @FXML
+    void delete(ActionEvent event) {
+        if (table_patients.getSelectionModel().getSelectedItems().size() == 1) {
+            if(patientDAOMongoDB.deletePatient(patientsHolder.get(0)).getDeletedCount()==1){
+                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setContentText(MainApplication.resourceBundle.getString("mainTable_operations_delete_success"));
+                alert.setTitle(MainApplication.resourceBundle.getString("mainTable_operations_tittle"));
+                alert.show();
+            }
+        }else {
+            if(patientDAOMongoDB.deleteManyPatients(patientsHolder).getDeletedCount()>=1){
+                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setContentText(MainApplication.resourceBundle.getString("mainTable_operations_delete_success"));
+                alert.setTitle(MainApplication.resourceBundle.getString("mainTable_operations_tittle"));
+                alert.show();
+            }
+        }
+        actualizarTabla();
+    }
+
+    @FXML
     void openConfig(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("config-view.fxml"), MainApplication.resourceBundle);
@@ -147,6 +186,50 @@ public class MainController implements Initializable, PacientesListener {
         }
     }
 
+    @FXML
+    void update(ActionEvent event) {
+        actualizarTabla();
+    }
+
+    @FXML
+    void addAFile(ActionEvent event) {
+        //filejooser with multiple selection and save the files in a list
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(MainApplication.resourceBundle.getString("menu_I_addFiles"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Files", "*.*"),
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"),
+                new FileChooser.ExtensionFilter("DOCX", "*.docx"),
+                new FileChooser.ExtensionFilter("DOC", "*.doc"),
+                new FileChooser.ExtensionFilter("XLSX", "*.xlsx"),
+                new FileChooser.ExtensionFilter("XLS", "*.xls"),
+                new FileChooser.ExtensionFilter("PPTX", "*.pptx"),
+                new FileChooser.ExtensionFilter("PPT", "*.ppt"),
+                new FileChooser.ExtensionFilter("TXT", "*.txt"),
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("JPEG", "*.jpeg")
+        );
+        List<File> files = fileChooser.showOpenMultipleDialog(((MenuItem) event.getSource()).getParentPopup().getOwnerWindow());
+        if (files != null) {
+            try {
+                ftpUtils.uploadFiles(patientsHolder.get(0), files);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @FXML
+    void deleteAFile(ActionEvent event) {
+        try {
+            ftpUtils.deleteFiles(patientsHolder.get(0), table_docs.getSelectionModel().getSelectedItems());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         p_name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -155,14 +238,13 @@ public class MainController implements Initializable, PacientesListener {
         p_phoneMum.setCellValueFactory(new PropertyValueFactory<>("phoneM"));
         p_phoneDad.setCellValueFactory(new PropertyValueFactory<>("phoneD"));
         p_motive.setCellValueFactory(new PropertyValueFactory<>("reason"));
-        doc_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        doc_update.setCellValueFactory(new PropertyValueFactory<>("menu_I_update"));
+        doc_name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
 
         /*Permite escoger varios elementos de las dos tablas*/
         table_patients.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table_docs.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        if(Objects.equals(MainApplication.properties.getProperty("configured"), "true")){
+        if (Objects.equals(MainApplication.properties.getProperty("configured"), "true")) {
             patientDAOMongoDB = new PatientDAOMongoDB(
                     "mongodb+srv://Admin_grs:guirojo28isthenewDeltha@neuronavigatormongodb.dacxkdt.mongodb.net/?retryWrites=true&w=majority",
                     "NeuroNavigator", "Patients");
@@ -170,6 +252,11 @@ public class MainController implements Initializable, PacientesListener {
             for (Patient p : x) {
                 table_patients.getItems().add(p);
             }
+            ftpUtils = new FTPUtils(MainApplication.properties.getProperty("ftp_host")
+                    , MainApplication.properties.getProperty("ftp_port")
+                    , MainApplication.properties.getProperty("ftp_fingerprint")
+                    , MainApplication.properties.getProperty("ftp_user")
+                    , MainApplication.properties.getProperty("ftp_password"));
         }
     }
 

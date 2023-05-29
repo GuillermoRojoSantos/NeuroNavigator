@@ -14,4 +14,5 @@ public interface DAOMongoDBInterface {
     public DeleteResult deletePatient(Patient patient);
     public InsertOneResult addPatient(Patient patient);
     public FindIterable<Patient> search(List<String> filters, List<String> values);
+    public DeleteResult deleteManyPatients(List<Patient> patients);
 }

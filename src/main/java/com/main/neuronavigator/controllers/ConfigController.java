@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -67,13 +68,13 @@ public class ConfigController implements Initializable {
     private Text ftp_answer;
 
     @FXML
-    private TextField ftp_ip;
+    private TextField ftp_host;
 
     @FXML
     private PasswordField ftp_password;
 
     @FXML
-    private TextField ftp_path;
+    private TextField ftp_fingerprint;
 
     @FXML
     private TextField ftp_port;
@@ -103,19 +104,10 @@ public class ConfigController implements Initializable {
     private ToggleButton language;
 
     @FXML
-    private TextField pathProperties;
-
-    @FXML
-    private Button resetPath;
-
-    @FXML
     private ToggleGroup toggleMenu;
 
     @FXML
     private ProgressIndicator waiter;
-
-    @FXML
-    private ImageView okIcon;
 
 
     @FXML
@@ -127,6 +119,21 @@ public class ConfigController implements Initializable {
             alert.setContentText(MainApplication.resourceBundle.getString("config_change"));
             alert.show();
         }
+        try (FileOutputStream output = new FileOutputStream(MainApplication.propertiesPath)) {
+            // set the properties value
+            MainApplication.properties.setProperty("mongoDB_connection", connectionString.getText());
+            MainApplication.properties.setProperty("mongoDB_db", database.getText());
+            MainApplication.properties.setProperty("mongoDB_collection", colection.getText());
+            MainApplication.properties.setProperty("ftp_host", ftp_host.getText());
+            MainApplication.properties.setProperty("ftp_port", ftp_port.getText());
+            MainApplication.properties.setProperty("ftp_user", ftp_user.getText());
+            MainApplication.properties.setProperty("ftp_password", ftp_password.getText());
+            MainApplication.properties.setProperty("ftp_fingerprint", ftp_fingerprint.getText());
+            MainApplication.properties.store(output, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Stage stage = (Stage) btnCLose.getScene().getWindow();
         stage.close();
     }
@@ -151,21 +158,21 @@ public class ConfigController implements Initializable {
                         .codecRegistry(registry)
                         .build();
                 MongoClient mongoClient = MongoClients.create(settings);
-                if(mongoClient.listDatabaseNames().into(new ArrayList<>()).contains(database.getText())){
-                    if(mongoClient.getDatabase(database.getText()).listCollectionNames().into(new ArrayList<>()).contains(colection.getText())){
+                if (mongoClient.listDatabaseNames().into(new ArrayList<>()).contains(database.getText())) {
+                    if (mongoClient.getDatabase(database.getText()).listCollectionNames().into(new ArrayList<>()).contains(colection.getText())) {
                         waiter.setVisible(false);
                         alert.setAlertType(Alert.AlertType.INFORMATION);
                         alert.setTitle(MainApplication.resourceBundle.getString("config_success_tittle"));
                         alert.setContentText(MainApplication.resourceBundle.getString("config_success"));
                         alert.show();
-                    }else {
+                    } else {
                         waiter.setVisible(false);
                         alert.setAlertType(Alert.AlertType.ERROR);
                         alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
                         alert.setContentText(MainApplication.resourceBundle.getString("config_errors_mongo_colection"));
                         alert.show();
                     }
-                }else {
+                } else {
                     waiter.setVisible(false);
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
@@ -213,6 +220,9 @@ public class ConfigController implements Initializable {
 
         //añadimos los validators para los campos necesarios
         setValidators();
+
+        //añadimos los valores de la configuración si existen:
+        fillInputs();
     }
 
 
@@ -361,24 +371,38 @@ public class ConfigController implements Initializable {
 
     private void setValidators() {
         validatorMongo.createCheck().dependsOn("connectionString", connectionString.textProperty()).withMethod(c -> {
-            String string= c.get("connectionString");
-            if (string.length()==0) {
+            String string = c.get("connectionString");
+            if (string.length() == 0) {
                 c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
             }
         }).decorates(connectionString).immediate();
 
         validatorMongo.createCheck().dependsOn("db", database.textProperty()).withMethod(c -> {
-            String string= c.get("db");
-            if (string.length()==0) {
+            String string = c.get("db");
+            if (string.length() == 0) {
                 c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
             }
         }).decorates(database).immediate();
 
         validatorMongo.createCheck().dependsOn("colection", colection.textProperty()).withMethod(c -> {
-            String string= c.get("colection");
-            if (string.length()==0) {
+            String string = c.get("colection");
+            if (string.length() == 0) {
                 c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
             }
         }).decorates(colection).immediate();
+    }
+
+    private void fillInputs() {
+        Properties p = MainApplication.properties;
+        ftp_host.setText(p.getProperty("ftp_host"));
+        ftp_port.setText(p.getProperty("ftp_port"));
+        ftp_user.setText(p.getProperty("ftp_user"));
+        ftp_password.setText(p.getProperty("ftp_password"));
+        ftp_fingerprint.setText(p.getProperty("ftp_fingerprint"));
+        connectionString.setText(p.getProperty("mongoDB_connection"));
+        database.setText(p.getProperty("mongoDB_db"));
+        colection.setText(p.getProperty("mongoDB_collection"));
+
+
     }
 }

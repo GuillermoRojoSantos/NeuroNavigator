@@ -44,14 +44,20 @@ public class MainApplication extends Application {
                 dir.getParentFile().mkdirs();
                 FileOutputStream fos = new FileOutputStream(propertiesPath);
                 properties=new Properties();
-                properties.setProperty("configured","true");
+                properties.setProperty("configured","false");
                 properties.setProperty("country","ES");
                 properties.setProperty("lang","es");
-                properties.setProperty("ftp_IP","");
+                properties.setProperty("ftp_host","");
                 properties.setProperty("ftp_password","");
-                properties.setProperty("ftp_path","");
+                properties.setProperty("ftp_fingerprint","");
                 properties.setProperty("ftp_port","");
                 properties.setProperty("ftp_user","");
+                properties.setProperty("mongoDB_connection","");
+                properties.setProperty("mongoDB_db","");
+                properties.setProperty("mongoDB_collection","");
+                properties.setProperty("ddbb_user","");
+                properties.setProperty("ddbb_password","");
+                properties.setProperty("ddbb_host","");
                 properties.store(fos,null);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);

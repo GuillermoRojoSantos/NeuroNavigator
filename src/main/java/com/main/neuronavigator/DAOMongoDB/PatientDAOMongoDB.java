@@ -12,7 +12,9 @@ import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -42,20 +44,6 @@ public class PatientDAOMongoDB implements DAOMongoDBInterface {
                 .codecRegistry(codecRegistry)
                 .build();
     }
-
-    /*public String conect;
-    public String db;
-    public String colection;
-    String conect = "mongodb+srv://Admin_grs:lXkfzBiZyQ8vhSn2@neuronavigatormongodb.dacxkdt.mongodb.net/?retryWrites=true&w=majority";
-    //Este nos da los codecs especificos para los POJOs
-    CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
-    //Y este nos da los codecs genéricos que tiene el driver de MongoDB
-    CodecRegistry codecRegistry = fromProviders(MongoClientSettings.getDefaultCodecRegistry(),pojoCodecRegistry);
-    ConnectionString connectionString = new ConnectionString(conect);
-    MongoClientSettings clientSettings = MongoClientSettings.builder().applyConnectionString(connectionString)
-            .codecRegistry(codecRegistry)
-            .build();
-*/
     private MongoCollection<Patient> getCollection(){
         MongoClient client = MongoClients.create(clientSettings);
         MongoDatabase mongodb = client.getDatabase(db);
@@ -69,7 +57,7 @@ public class PatientDAOMongoDB implements DAOMongoDBInterface {
     }
 
     @Override
-    public UpdateResult updatePatient(Patient patient) {
+        public UpdateResult updatePatient(Patient patient) {
         MongoCollection<Patient> collection = getCollection();
 
         Bson filter = Filters.eq("_id", patient.get_id());
@@ -94,4 +82,14 @@ public class PatientDAOMongoDB implements DAOMongoDBInterface {
         return null;
     }
 
+    @Override
+    public DeleteResult deleteManyPatients(List<Patient> patients) {
+        List<ObjectId> list = new ArrayList<>();
+        for (Patient p : patients){
+            list.add(p._id);
+        }
+        MongoCollection<Patient> collection = getCollection();
+        Bson filter = Filters.in("_id",list);
+        return collection.deleteMany(filter);
+    }
 }

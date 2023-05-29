@@ -1,4 +1,4 @@
-package com.main.neuronavigator;
+package com.main.neuronavigator.DAOMongoDB;
 
 import com.mongodb.*;
 import com.mongodb.client.*;
