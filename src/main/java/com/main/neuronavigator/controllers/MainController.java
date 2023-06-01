@@ -2,14 +2,14 @@ package com.main.neuronavigator.controllers;
 
 import com.main.neuronavigator.DAOMongoDB.PatientDAOMongoDB;
 import com.main.neuronavigator.FTPManager.FTPUtils;
-import com.main.neuronavigator.Main;
 import com.main.neuronavigator.MainApplication;
 import com.main.neuronavigator.PacientesListener;
 import com.main.neuronavigator.models.Patient;
 import com.mongodb.client.FindIterable;
-import com.mongodb.client.result.DeleteResult;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,13 +31,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainController implements Initializable, PacientesListener {
 
-    private PatientDAOMongoDB patientDAOMongoDB;
+    private static PatientDAOMongoDB patientDAOMongoDB;
     private FTPUtils ftpUtils;
-    public static List<Patient> patientsHolder=new ArrayList<>();
+    public static List<Patient> patientsHolder = new ArrayList<>();
+    public static Patient patientHolder = null;
     private Alert alert = new Alert(Alert.AlertType.NONE);
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+
 
     @FXML
     private MenuItem addFile;
@@ -81,21 +86,38 @@ public class MainController implements Initializable, PacientesListener {
 
     @FXML
     void getPatient(MouseEvent event) {
-        patientsHolder.removeAll(patientsHolder);
         if (table_patients.getSelectionModel().getSelectedItems().size() == 1) {
+            patientHolder = table_patients.getSelectionModel().getSelectedItem();
             itemUpdate.setDisable(false);
             switch (event.getClickCount()) {
                 case 1 -> {
-                    patientsHolder.add(0,table_patients.getSelectionModel().getSelectedItems().get(0));
+                    Task<ObservableList<String>> task = new Task<>() {
+                        @Override
+                        protected ObservableList<String> call() throws Exception {
+                            return FXCollections.observableArrayList(ftpUtils.listFiles(patientHolder));
+                        }
+                    };
 
-                    /*Usar una instancia del controlador SFTP para traerte los documentos necesarios a través del ID del paciente*/
-                    try {
-                        ObservableList<String> documents = table_docs.getItems();
-                        documents.clear();
-                        documents.addAll(ftpUtils.listFiles(patientsHolder.get(0)));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    task.setOnSucceeded(e -> {
+                        if (task.getValue().isEmpty()){
+                            deleteFile.setDisable(true);
+                        }else{
+                            deleteFile.setDisable(false);
+                        }
+                        ObservableList<String> documents = task.getValue();
+                        table_docs.getItems().clear();
+                        table_docs.getItems().addAll(documents);
+                    });
+
+                    task.setOnFailed(e -> {
+                        Throwable exception = task.getException();
+                        // Manejar el error según sea necesario
+                        exception.printStackTrace();
+                    });
+
+                    Thread thread = new Thread(task);
+                    thread.setDaemon(true); // Marcar el hilo como demonio para que se cierre automáticamente al salir de la aplicación
+                    thread.start();
                 }
                 case 2 -> {
 
@@ -113,11 +135,10 @@ public class MainController implements Initializable, PacientesListener {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
-
                 }
             }
         } else if (table_patients.getSelectionModel().getSelectedItems().size() >= 2) {
+
             itemUpdate.setDisable(true);
             patientsHolder.addAll(table_patients.getSelectionModel().getSelectedItems());
         }
@@ -149,14 +170,14 @@ public class MainController implements Initializable, PacientesListener {
     @FXML
     void delete(ActionEvent event) {
         if (table_patients.getSelectionModel().getSelectedItems().size() == 1) {
-            if(patientDAOMongoDB.deletePatient(patientsHolder.get(0)).getDeletedCount()==1){
+            if (patientDAOMongoDB.deletePatient(patientsHolder.get(0)).getDeletedCount() == 1) {
                 alert.setAlertType(Alert.AlertType.CONFIRMATION);
                 alert.setContentText(MainApplication.resourceBundle.getString("mainTable_operations_delete_success"));
                 alert.setTitle(MainApplication.resourceBundle.getString("mainTable_operations_tittle"));
                 alert.show();
             }
-        }else {
-            if(patientDAOMongoDB.deleteManyPatients(patientsHolder).getDeletedCount()>=1){
+        } else {
+            if (patientDAOMongoDB.deleteManyPatients(patientsHolder).getDeletedCount() >= 1) {
                 alert.setAlertType(Alert.AlertType.CONFIRMATION);
                 alert.setContentText(MainApplication.resourceBundle.getString("mainTable_operations_delete_success"));
                 alert.setTitle(MainApplication.resourceBundle.getString("mainTable_operations_tittle"));
@@ -213,7 +234,7 @@ public class MainController implements Initializable, PacientesListener {
         List<File> files = fileChooser.showOpenMultipleDialog(((MenuItem) event.getSource()).getParentPopup().getOwnerWindow());
         if (files != null) {
             try {
-                ftpUtils.uploadFiles(patientsHolder.get(0), files);
+                ftpUtils.uploadFiles(patientHolder, files);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -223,7 +244,8 @@ public class MainController implements Initializable, PacientesListener {
     @FXML
     void deleteAFile(ActionEvent event) {
         try {
-            ftpUtils.deleteFiles(patientsHolder.get(0), table_docs.getSelectionModel().getSelectedItems());
+            ftpUtils.deleteFiles(patientHolder, table_docs.getSelectionModel().getSelectedItems());
+            table_docs.getItems().removeAll(table_docs.getSelectionModel().getSelectedItems());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -244,14 +266,26 @@ public class MainController implements Initializable, PacientesListener {
         table_patients.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table_docs.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
+        deleteFile.setDisable(true);
+
         if (Objects.equals(MainApplication.properties.getProperty("configured"), "true")) {
-            patientDAOMongoDB = new PatientDAOMongoDB(
-                    "mongodb+srv://Admin_grs:guirojo28isthenewDeltha@neuronavigatormongodb.dacxkdt.mongodb.net/?retryWrites=true&w=majority",
-                    "NeuroNavigator", "Patients");
-            FindIterable<Patient> x = patientDAOMongoDB.getAll();
-            for (Patient p : x) {
-                table_patients.getItems().add(p);
+            try {
+                patientDAOMongoDB = new PatientDAOMongoDB(
+                        MainApplication.properties.getProperty("mongoDB_connection"),
+                        MainApplication.properties.getProperty("mongoDB_db"), MainApplication.properties.getProperty("mongoDB_collection"));
+                FindIterable<Patient> x = patientDAOMongoDB.getAll();
+                for (Patient p : x) {
+                    table_patients.getItems().add(p);
+                }
+            }catch (Exception e) {
+                alert.setAlertType(Alert.AlertType.ERROR);
+                alert.setContentText(MainApplication.resourceBundle.getString("config_errors_mongo_auth"));
+                alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
+                alert.initModality(Modality.WINDOW_MODAL);
+                alert.showAndWait();
             }
+
+
             ftpUtils = new FTPUtils(MainApplication.properties.getProperty("ftp_host")
                     , MainApplication.properties.getProperty("ftp_port")
                     , MainApplication.properties.getProperty("ftp_fingerprint")
@@ -267,5 +301,9 @@ public class MainController implements Initializable, PacientesListener {
         for (Patient p : x) {
             table_patients.getItems().add(p);
         }
+    }
+
+    public static PatientDAOMongoDB getPatientDAOMongoDB() {
+        return patientDAOMongoDB;
     }
 }

@@ -21,7 +21,6 @@ import static com.mongodb.client.model.Filters.eq;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 
 
-
 public class PatientDAOMongoDB implements DAOMongoDBInterface {
 
     private String conect;
@@ -44,10 +43,11 @@ public class PatientDAOMongoDB implements DAOMongoDBInterface {
                 .codecRegistry(codecRegistry)
                 .build();
     }
-    private MongoCollection<Patient> getCollection(){
+
+    private MongoCollection<Patient> getCollection() {
         MongoClient client = MongoClients.create(clientSettings);
         MongoDatabase mongodb = client.getDatabase(db);
-        return mongodb.getCollection(colection,Patient.class);
+        return mongodb.getCollection(colection, Patient.class);
     }
 
     @Override
@@ -57,12 +57,11 @@ public class PatientDAOMongoDB implements DAOMongoDBInterface {
     }
 
     @Override
-        public UpdateResult updatePatient(Patient patient) {
+    public UpdateResult updatePatient(Patient oldpatient, Patient newPatient) {
         MongoCollection<Patient> collection = getCollection();
-
-        Bson filter = Filters.eq("_id", patient.get_id());
-        Bson updateOperation = new Document("$set", patient);
-        return collection.updateOne(filter, updateOperation);
+        Bson filter = eq("phone", oldpatient.getPhone());
+        Bson updateOperationDocument = new Document("$set", newPatient);
+        return collection.updateOne(filter, updateOperationDocument);
     }
 
     @Override
@@ -85,11 +84,11 @@ public class PatientDAOMongoDB implements DAOMongoDBInterface {
     @Override
     public DeleteResult deleteManyPatients(List<Patient> patients) {
         List<ObjectId> list = new ArrayList<>();
-        for (Patient p : patients){
-            list.add(p._id);
+        for (Patient p : patients) {
+            list.add(p.get_id());
         }
         MongoCollection<Patient> collection = getCollection();
-        Bson filter = Filters.in("_id",list);
+        Bson filter = Filters.in("_id", list);
         return collection.deleteMany(filter);
     }
 }

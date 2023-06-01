@@ -1,13 +1,18 @@
 package com.main.neuronavigator.DAOMongoDB;
 
+import com.main.neuronavigator.Libro;
 import com.mongodb.*;
 import com.mongodb.client.*;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import javafx.scene.control.Alert;
+import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 
@@ -25,7 +30,7 @@ public class test {
                 .build();
 
         try (MongoClient mongoClient = MongoClients.create(clientSettings)) {
-            System.out.println(mongoClient.listDatabaseNames().into(new ArrayList<>()).contains("bob"));
+            System.out.println(mongoClient.listDatabaseNames().into(new ArrayList<>()).contains("test"));
 
             /*MongoDatabase database = mongoClient.getDatabase("test");
             MongoCollection<Libro> libros = database.getCollection("libro", Libro.class);
@@ -43,6 +48,14 @@ public class test {
             libro.append("nombre","Guía del autoestopista galáctico")
                     .append("autor","Douglas Adams");
             libros.insertOne(libro);*/
+
+            //update one book changing the author
+            MongoDatabase database = mongoClient.getDatabase("test");
+            MongoCollection<Libro> libros = database.getCollection("libro", Libro.class);
+            Bson filter = new Document("nombre","Guía del autoestopista galáctico");
+            Bson updateOperation = new Document("$set", new Document("autor",new ArrayList<String>(Collections.singleton("Douglas Adams"))));
+            UpdateResult result = libros.updateOne(filter,updateOperation);
+            System.out.println(result.getModifiedCount());
 
         }
     }

@@ -90,4 +90,16 @@ public class FTPUtils {
         sftpClient.close();
         client.disconnect();
     }
+
+    public void renameFile(String oldName, String newName) throws IOException {
+        SSHClient client = new SSHClient();
+        client.addHostKeyVerifier(FTP_FINGERPRINT);
+        client.connect(FTP_HOST, Integer.parseInt(FTP_PORT));
+        client.authPassword(FTP_USER, FTP_PASS);
+        SFTPClient sftpClient = client.newSFTPClient();
+        sftpClient.rename("home/NeuroNavigator/" + oldName, "home/NeuroNavigator/" + newName);
+        sftpClient.close();
+        client.disconnect();
+    }
+
 }

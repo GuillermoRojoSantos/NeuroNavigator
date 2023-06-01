@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface DAOMongoDBInterface {
     public FindIterable<Patient> getAll();
-    public UpdateResult updatePatient(Patient patient);
+    public UpdateResult updatePatient(Patient oldpatient, Patient newPatient);
     public DeleteResult deletePatient(Patient patient);
     public InsertOneResult addPatient(Patient patient);
     public FindIterable<Patient> search(List<String> filters, List<String> values);

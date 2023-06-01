@@ -14,22 +14,22 @@ import java.util.List;
 public class Patient implements Serializable {
 
 
-    public ObjectId _id;
-    public String name;
-    public String lastName;
-    public LocalDate birth;
-    public Integer age;
-    public String address;
-    public String phone;
-    public String phoneM;
-    public String phoneD;
-    public String occupation;
-    public String momName;
-    public String dadName;
-    public String sender;
-    public String reason;
-    public List<LocalDate> evaluations=new ArrayList<LocalDate>();
-    public String observations;
+    private ObjectId _id;
+    private String name;
+    private String lastName;
+    private LocalDate birth;
+    private Integer age;
+    private String address;
+    private String phone;
+    private String phoneM;
+    private String phoneD;
+    private String occupation;
+    private String momName;
+    private String dadName;
+    private String sender;
+    private String reason;
+    private List<LocalDate> evaluations=new ArrayList<LocalDate>();
+    private String observations;
 
 
     public ObjectId get_id() {
