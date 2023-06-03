@@ -10,8 +10,10 @@ module com.main.neuronavigator {
     requires org.mongodb.driver.sync.client;
     requires org.mongodb.bson;
     requires org.mongodb.driver.core;
-    requires org.slf4j.nop;
     requires com.hierynomus.sshj;
+    requires javafx.swing;
+    requires jasperreports;
+    requires java.sql;
 
     opens com.main.neuronavigator to javafx.fxml;
     opens com.main.neuronavigator.models;

@@ -12,8 +12,8 @@ import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class PatientDAOMongoDB implements DAOMongoDBInterface {
     private ConnectionString connectionString;
     private MongoClientSettings clientSettings;
 
-    public PatientDAOMongoDB(String conect, String db, String colection) {
+    public PatientDAOMongoDB(String conect, String db, String colection) throws NoSuchAlgorithmException {
         this.conect = conect;
         this.db = db;
         this.colection = colection;
@@ -53,7 +53,8 @@ public class PatientDAOMongoDB implements DAOMongoDBInterface {
     @Override
     public FindIterable<Patient> getAll() {
         MongoCollection<Patient> collection = getCollection();
-        return collection.find();
+        FindIterable<Patient> result = collection.find();
+        return result;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class PatientDAOMongoDB implements DAOMongoDBInterface {
     @Override
     public DeleteResult deletePatient(Patient patient) {
         MongoCollection<Patient> collection = getCollection();
-        return collection.deleteOne(eq("_id", patient.get_id()));
+        return collection.deleteOne(eq("phone", patient.getPhone()));
     }
 
     @Override
@@ -77,18 +78,13 @@ public class PatientDAOMongoDB implements DAOMongoDBInterface {
     }
 
     @Override
-    public FindIterable<Patient> search(List<String> filters, List<String> values) {
-        return null;
-    }
-
-    @Override
     public DeleteResult deleteManyPatients(List<Patient> patients) {
-        List<ObjectId> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         for (Patient p : patients) {
-            list.add(p.get_id());
+            list.add(p.getPhone());
         }
         MongoCollection<Patient> collection = getCollection();
-        Bson filter = Filters.in("_id", list);
+        Bson filter = Filters.in("phone", list);
         return collection.deleteMany(filter);
     }
 }

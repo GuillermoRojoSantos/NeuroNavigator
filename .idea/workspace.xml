@@ -9,15 +9,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28705f35-9d43-414b-bcb0-d965b183f6ff" name="Changes" comment="Pom">
+    <list default="true" id="28705f35-9d43-414b-bcb0-d965b183f6ff" name="Changes" comment="Añadido renameFile en FTPUtils.java&#10;Añadida opción de actualizar paciente en infoPatient-view.fxml&#10;Cambiado el modo de selección de los pacientes en la tabla de MainController&#10;Cambiados atributos de paciente a privados">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/PatientResume.jasper" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/DAOMongoDB/DAOMongoDBInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/DAOMongoDB/DAOMongoDBInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/DAOMongoDB/PatientDAOMongoDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/DAOMongoDB/PatientDAOMongoDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/FTPManager/FTPUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/FTPManager/FTPUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/Libro.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/AddController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/ConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/ConfigController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/InfoPatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/InfoPatientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/models/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/models/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/add-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/add-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/config-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/config-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/infoPatient-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/infoPatient-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/main/neuronavigator/main-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/strings_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/strings_es.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_es.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/strings_fr.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_fr.properties" afterDir="false" />
@@ -60,40 +71,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_directory_selection&quot;: &quot;D:/Programacion/TFG_Tests/NeuroNavigator/src/main/resources/com/main/neuronavigator&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Programacion/TFG_Tests/NeuroNavigator/src/main/resources/com/main/neuronavigator&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.20605469&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.27586207&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_directory_selection": "D:/Programacion/TFG_Tests/NeuroNavigator/src/main/resources/com/main/neuronavigator",
+    "last_opened_file_path": "D:/Programacion/TFG_Tests/NeuroNavigator/src/main/resources/com/main/neuronavigator",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.20605469",
+    "project.structure.side.proportion": "0.27586207",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "editing.templates",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\resources\com\main\neuronavigator" />
       <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\resources" />
       <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\java\com\main\neuronavigator" />
       <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\resources\com\main\neuronavigator" />
-      <recent name="D:\Programacion\TFG_Tests\NeuroNavigator\src\main\resources" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -115,6 +127,7 @@
       <command value="mvn --version" />
       <command value="mvn package" />
       <command value="mvn clean" />
+      <command value="mvn dependency:analyze" />
     </option>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -186,8 +199,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.test" />
         <item itemvalue="Application.testFTP" />
+        <item itemvalue="Application.test" />
         <item itemvalue="Application.tst" />
         <item itemvalue="Application.MainApplication" />
       </list>
@@ -252,6 +265,17 @@
       <workItem from="1685519056798" duration="9000" />
       <workItem from="1685558581529" duration="11645000" />
       <workItem from="1685602021641" duration="641000" />
+      <workItem from="1685611999407" duration="7636000" />
+      <workItem from="1685636893462" duration="922000" />
+      <workItem from="1685638232351" duration="101000" />
+      <workItem from="1685638348415" duration="120000" />
+      <workItem from="1685638488024" duration="15835000" />
+      <workItem from="1685706949043" duration="1579000" />
+      <workItem from="1685720536029" duration="2340000" />
+      <workItem from="1685722932371" duration="228000" />
+      <workItem from="1685723513842" duration="10139000" />
+      <workItem from="1685745986443" duration="633000" />
+      <workItem from="1685782780802" duration="14321000" />
     </task>
     <task id="LOCAL-00001" summary="Añadido contenido para la internacionalización de la aplicación y funcionalidad de añadir paciente con verificación de campos.">
       <created>1685007690702</created>
@@ -295,7 +319,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685331586031</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Añadido renameFile en FTPUtils.java&#10;Añadida opción de actualizar paciente en infoPatient-view.fxml&#10;Cambiado el modo de selección de los pacientes en la tabla de MainController&#10;Cambiados atributos de paciente a privados">
+      <created>1685621775993</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1685621775993</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +353,8 @@
     <MESSAGE value="Ahora lel archivo de propiedades se crea y se accede desde fuera" />
     <MESSAGE value="Añadido borrar muchos pacientes, añadido subir y eliminar archivos de cada paciente, añadido configuración independiente de los recursos de la class, añadido FTPUtils.java, eliminado DocFTP.java, los campos de la configuración se rellenan con los datos del archivo de propiedades" />
     <MESSAGE value="Pom" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pom" />
+    <MESSAGE value="Añadido renameFile en FTPUtils.java&#10;Añadida opción de actualizar paciente en infoPatient-view.fxml&#10;Cambiado el modo de selección de los pacientes en la tabla de MainController&#10;Cambiados atributos de paciente a privados" />
+    <option name="LAST_COMMIT_MESSAGE" value="Añadido renameFile en FTPUtils.java&#10;Añadida opción de actualizar paciente en infoPatient-view.fxml&#10;Cambiado el modo de selección de los pacientes en la tabla de MainController&#10;Cambiados atributos de paciente a privados" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -333,5 +365,10 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((FindIterableImpl)result).codecRegistry" custom="com.mongodb.client.internal.FindIterableImpl" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

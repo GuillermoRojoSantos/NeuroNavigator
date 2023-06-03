@@ -1,10 +1,10 @@
 package com.main.neuronavigator.controllers;
 
 import com.main.neuronavigator.DAOMongoDB.PatientDAOMongoDB;
+import com.main.neuronavigator.FTPManager.FTPUtils;
 import com.main.neuronavigator.MainApplication;
 import com.main.neuronavigator.PacientesListener;
 import com.main.neuronavigator.models.Patient;
-import com.mongodb.client.FindIterable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.synedra.validatorfx.Validator;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Locale;
@@ -23,6 +24,7 @@ public class AddController implements Initializable {
     private LocalDate today = LocalDate.now();
     private static Alert alert = new Alert(Alert.AlertType.NONE);
     private PatientDAOMongoDB patientDAOMongoDB;
+    private FTPUtils ftpUtils;
 
     private PacientesListener pacientesListener;
 
@@ -118,11 +120,18 @@ public class AddController implements Initializable {
                 patient.addEvaluation(today);
             }
             if (patientDAOMongoDB.addPatient(patient).getInsertedId() != null) {
+                new Thread(()->{
+                    try {
+                        ftpUtils.createDir(patient.getPhone());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).start();
                 pacientesListener.actualizarTabla();
                 alert.setAlertType(Alert.AlertType.CONFIRMATION);
                 alert.setTitle(MainApplication.resourceBundle.getString("add_succesfullTitle"));
                 alert.setContentText(MainApplication.resourceBundle.getString("add_succesfullContent"));
-                alert.show();
+                alert.showAndWait();
                 alert.setOnCloseRequest(e -> {
                     Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.close();
@@ -132,16 +141,15 @@ public class AddController implements Initializable {
             alert.setAlertType(Alert.AlertType.WARNING);
             alert.setTitle(MainApplication.resourceBundle.getString("config_warning"));
             alert.setContentText(MainApplication.resourceBundle.getString("add_errors_checkFields"));
-            alert.show();
+            alert.showAndWait();
         }
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        patientDAOMongoDB = new PatientDAOMongoDB(
-                "mongodb+srv://Admin_grs:guirojo28isthenewDeltha@neuronavigatormongodb.dacxkdt.mongodb.net/?retryWrites=true&w=majority",
-                "NeuroNavigator", "Patients");
+        patientDAOMongoDB = MainController.getPatientDAOMongoDB();
+        ftpUtils = MainController.getFtpUtils();
         //Hay que ponerle el locale a la aplicación para que el alertType del alert se ponga en el idioma correcto
         Locale.setDefault(MainApplication.locale);
         secondaryData.expandedProperty().addListener((expandedProperty, wasExpanded, isNowExpanded) -> {

@@ -1,18 +1,17 @@
 package com.main.neuronavigator.models;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 public class Patient implements Serializable {
-
 
     private ObjectId _id;
     private String name;
@@ -31,6 +30,9 @@ public class Patient implements Serializable {
     private List<LocalDate> evaluations=new ArrayList<LocalDate>();
     private String observations;
 
+    public void set_id(ObjectId _id) {
+        this._id = _id;
+    }
 
     public ObjectId get_id() {
         return _id;

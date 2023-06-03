@@ -73,13 +73,13 @@
                         <TextArea fx:id="txtObservations" layoutY="12.0" prefHeight="188.0" prefWidth="384.0" wrapText="true" />
                      </children>
                   </Group>
-                  <Group layoutX="119.0" layoutY="124.0" AnchorPane.topAnchor="119.05078125">
+                  <Group layoutX="331.0" layoutY="22.0" AnchorPane.topAnchor="14.05078125">
                      <children>
                         <TextField fx:id="txtPhoneM" layoutY="36.94921875" />
                         <Text layoutY="8.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_phoneMother" wrappingWidth="148.841796875" />
                      </children>
                   </Group>
-                  <Group layoutX="331.0" layoutY="122.0" AnchorPane.topAnchor="118.05078125">
+                  <Group layoutX="331.0" layoutY="115.0" AnchorPane.topAnchor="111.05078125">
                      <children>
                         <TextField fx:id="txtPhoneF" layoutY="36.94921875" />
                         <Text layoutY="9.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_phoneFather" wrappingWidth="148.841796875" />
@@ -91,7 +91,7 @@
                         <Text layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_nameMother" wrappingWidth="147.841796875" />
                      </children>
                   </Group>
-                  <Group layoutX="331.0" layoutY="28.0">
+                  <Group layoutX="119.0" layoutY="124.0">
                      <children>
                         <TextField fx:id="txtNFather" layoutY="36.94921875" />
                         <Text layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%add_nameFather" wrappingWidth="147.841796875" />

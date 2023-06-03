@@ -1,12 +1,12 @@
 package com.main.neuronavigator.controllers;
 
 import com.main.neuronavigator.MainApplication;
-import com.main.neuronavigator.models.Patient;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoTimeoutException;
-import com.mongodb.client.*;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,16 +15,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import net.schmizz.sshj.SSHClient;
+import net.schmizz.sshj.transport.verification.OpenSSHKnownHosts;
 import net.synedra.validatorfx.Validator;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -65,16 +68,10 @@ public class ConfigController implements Initializable {
     private Text ftp_IP;
 
     @FXML
-    private Text ftp_answer;
-
-    @FXML
     private TextField ftp_host;
 
     @FXML
     private PasswordField ftp_password;
-
-    @FXML
-    private TextField ftp_fingerprint;
 
     @FXML
     private TextField ftp_port;
@@ -106,18 +103,11 @@ public class ConfigController implements Initializable {
     @FXML
     private ToggleGroup toggleMenu;
 
-    @FXML
-    private ProgressIndicator waiter;
-
 
     @FXML
     void closeAndSave(ActionEvent event) {
         if (lang_boxChanged) {
             changeLang();
-            alert.setAlertType(Alert.AlertType.WARNING);
-            alert.setTitle(MainApplication.resourceBundle.getString("config_warning"));
-            alert.setContentText(MainApplication.resourceBundle.getString("config_change"));
-            alert.show();
         }
         try (FileOutputStream output = new FileOutputStream(MainApplication.propertiesPath)) {
             // set the properties value
@@ -128,12 +118,14 @@ public class ConfigController implements Initializable {
             MainApplication.properties.setProperty("ftp_port", ftp_port.getText());
             MainApplication.properties.setProperty("ftp_user", ftp_user.getText());
             MainApplication.properties.setProperty("ftp_password", ftp_password.getText());
-            MainApplication.properties.setProperty("ftp_fingerprint", ftp_fingerprint.getText());
             MainApplication.properties.store(output, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        alert.setAlertType(Alert.AlertType.WARNING);
+        alert.setTitle(MainApplication.resourceBundle.getString("config_warning"));
+        alert.setContentText(MainApplication.resourceBundle.getString("config_change"));
+        alert.showAndWait();
         Stage stage = (Stage) btnCLose.getScene().getWindow();
         stage.close();
     }
@@ -144,10 +136,9 @@ public class ConfigController implements Initializable {
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
             alert.setContentText(MainApplication.resourceBundle.getString("config_errors_checkFields"));
-            alert.show();
+            alert.showAndWait();
         } else {
             try {
-                waiter.setVisible(true);
                 //Conexion a la base de datos>
                 ConnectionString connString = new ConnectionString(connectionString.getText());
                 CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
@@ -160,47 +151,64 @@ public class ConfigController implements Initializable {
                 MongoClient mongoClient = MongoClients.create(settings);
                 if (mongoClient.listDatabaseNames().into(new ArrayList<>()).contains(database.getText())) {
                     if (mongoClient.getDatabase(database.getText()).listCollectionNames().into(new ArrayList<>()).contains(colection.getText())) {
-                        waiter.setVisible(false);
                         alert.setAlertType(Alert.AlertType.INFORMATION);
                         alert.setTitle(MainApplication.resourceBundle.getString("config_success_tittle"));
                         alert.setContentText(MainApplication.resourceBundle.getString("config_success"));
-                        alert.show();
+                        alert.showAndWait();
                     } else {
-                        waiter.setVisible(false);
                         alert.setAlertType(Alert.AlertType.ERROR);
                         alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
                         alert.setContentText(MainApplication.resourceBundle.getString("config_errors_mongo_colection"));
-                        alert.show();
+                        alert.showAndWait();
                     }
                 } else {
-                    waiter.setVisible(false);
                     alert.setAlertType(Alert.AlertType.ERROR);
                     alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
                     alert.setContentText(MainApplication.resourceBundle.getString("config_errors_mongo_db"));
-                    alert.show();
+                    alert.showAndWait();
                 }
             } catch (MongoSecurityException e) {
-                waiter.setVisible(false);
                 alert.setAlertType(Alert.AlertType.ERROR);
                 alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
                 alert.setContentText(MainApplication.resourceBundle.getString("config_errors_mongo_auth"));
-                alert.show();
+                alert.showAndWait();
                 e.printStackTrace();
             } catch (MongoTimeoutException e) {
-                waiter.setVisible(false);
                 alert.setAlertType(Alert.AlertType.ERROR);
                 alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
                 alert.setContentText(MainApplication.resourceBundle.getString("config_errors_mongo_timeout"));
-                alert.show();
+                alert.showAndWait();
                 e.printStackTrace();
             } catch (Exception e) {
-                waiter.setVisible(false);
                 alert.setAlertType(Alert.AlertType.ERROR);
                 alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
                 alert.setContentText(MainApplication.resourceBundle.getString("config_errors_general"));
-                alert.show();
+                alert.showAndWait();
                 e.printStackTrace();
             }
+        }
+    }
+
+    @FXML
+    void testFTP(ActionEvent event) throws IOException {
+        try {
+            SSHClient client = new SSHClient();
+            client.addHostKeyVerifier(new OpenSSHKnownHosts(new File(String.format("%s/.ssh/known_hosts", System.getProperty("user.home")))));
+            client.connect(ftp_host.getText(), Integer.parseInt(ftp_port.getText()));
+            client.authPassword(ftp_user.getText(), ftp_password.getText());
+
+            if(client.isConnected()){
+
+                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setTitle(MainApplication.resourceBundle.getString("config_success_tittle"));
+                alert.setContentText(MainApplication.resourceBundle.getString("config_FTP_answerOK"));
+                alert.show();
+            }
+        } catch (Exception e) {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
+            alert.setContentText(MainApplication.resourceBundle.getString("config_FTP_answerWrong"));
+            alert.show();
         }
     }
 
@@ -398,11 +406,8 @@ public class ConfigController implements Initializable {
         ftp_port.setText(p.getProperty("ftp_port"));
         ftp_user.setText(p.getProperty("ftp_user"));
         ftp_password.setText(p.getProperty("ftp_password"));
-        ftp_fingerprint.setText(p.getProperty("ftp_fingerprint"));
         connectionString.setText(p.getProperty("mongoDB_connection"));
         database.setText(p.getProperty("mongoDB_db"));
         colection.setText(p.getProperty("mongoDB_collection"));
-
-
     }
 }

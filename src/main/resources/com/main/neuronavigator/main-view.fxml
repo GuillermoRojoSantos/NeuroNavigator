@@ -56,20 +56,22 @@
             <menus>
                 <Menu mnemonicParsing="false" text="%menu_file">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="%menu_I_close">
-                            <accelerator>
-                                <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
                         <MenuItem mnemonicParsing="false" onAction="#addPatient" text="%menu_I_add" />
                   <MenuItem fx:id="addFile" mnemonicParsing="false" onAction="#addAFile" text="%menu_I_addFiles" />
-                  <MenuItem fx:id="deleteFile" mnemonicParsing="false" onAction="#deleteAFile" text="%menu_I_deleteFiles" />
+                  <MenuItem fx:id="deleteFile" mnemonicParsing="false" onAction="#deleteAFile" text="%menu_I_deleteFiles">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="DELETE" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="downloadFile" mnemonicParsing="false" onAction="#descargar" text="%menu_I_downloadFile" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu_edit">
                     <items>
                   <MenuItem fx:id="itemUpdate" mnemonicParsing="false" onAction="#update" text="%menu_I_update" />
-                  <MenuItem fx:id="itemDelete" mnemonicParsing="false" onAction="#delete" text="%menu_I_delete" />
+                  <MenuItem fx:id="itemDelete" mnemonicParsing="false" onAction="#delete" text="%menu_I_delete">
+                     <accelerator>
+                        <KeyCodeCombination alt="ANY" code="DELETE" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu_help">

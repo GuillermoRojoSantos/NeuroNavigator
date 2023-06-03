@@ -7,7 +7,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.*;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class MainApplication extends Application {
     public static Properties properties;
@@ -49,7 +51,6 @@ public class MainApplication extends Application {
                 properties.setProperty("lang","es");
                 properties.setProperty("ftp_host","");
                 properties.setProperty("ftp_password","");
-                properties.setProperty("ftp_fingerprint","");
                 properties.setProperty("ftp_port","");
                 properties.setProperty("ftp_user","");
                 properties.setProperty("mongoDB_connection","");
