@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FTPUtils {
+public class FTPUtils implements FTPUtilsInterface {
     private final String FTP_HOST;
     private final String FTP_USER;
     private final String FTP_PASS;
@@ -23,6 +23,7 @@ public class FTPUtils {
         this.FTP_PASS = FTP_PASS;
     }
 
+    @Override
     public List<String> listFiles(String number) throws IOException {
         SSHClient client = new SSHClient();
         client.addHostKeyVerifier(new OpenSSHKnownHosts(new File(String.format("%s/.ssh/known_hosts", System.getProperty("user.home")))));
@@ -39,6 +40,7 @@ public class FTPUtils {
         return result;
     }
 
+    @Override
     public void uploadFiles(String number, List<File> file) throws IOException {
         SSHClient client = new SSHClient();
         client.addHostKeyVerifier(new OpenSSHKnownHosts(new File(String.format("%s/.ssh/known_hosts", System.getProperty("user.home")))));
@@ -52,6 +54,7 @@ public class FTPUtils {
         client.disconnect();
     }
 
+    @Override
     public void downloadFiles(String number, List<String> files) throws IOException {
         SSHClient client = new SSHClient();
         client.addHostKeyVerifier(new OpenSSHKnownHosts(new File(String.format("%s/.ssh/known_hosts", System.getProperty("user.home")))));
@@ -69,6 +72,7 @@ public class FTPUtils {
         client.disconnect();
     }
 
+    @Override
     public void createDir(String number) throws IOException {
         SSHClient client = new SSHClient();
         client.addHostKeyVerifier(new OpenSSHKnownHosts(new File(String.format("%s/.ssh/known_hosts", System.getProperty("user.home")))));
@@ -80,6 +84,7 @@ public class FTPUtils {
         client.disconnect();
     }
 
+    @Override
     public void deleteFiles(String number, List<String> file) throws IOException {
         SSHClient client = new SSHClient();
         client.addHostKeyVerifier(new OpenSSHKnownHosts(new File(String.format("%s/.ssh/known_hosts", System.getProperty("user.home")))));
@@ -93,6 +98,7 @@ public class FTPUtils {
         client.disconnect();
     }
 
+    @Override
     public void renameFile(String oldName, String newName) throws IOException {
         SSHClient client = new SSHClient();
         client.addHostKeyVerifier(new OpenSSHKnownHosts(new File(String.format("%s/.ssh/known_hosts", System.getProperty("user.home")))));
@@ -104,6 +110,7 @@ public class FTPUtils {
         client.disconnect();
     }
 
+    @Override
     public void delDir(String number) throws IOException {
         SSHClient client = new SSHClient();
         client.addHostKeyVerifier(new OpenSSHKnownHosts(new File(String.format("%s/.ssh/known_hosts", System.getProperty("user.home")))));
