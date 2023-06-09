@@ -3,6 +3,7 @@ package com.main.neuronavigator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -16,12 +17,12 @@ public class MainApplication extends Application {
     public static ResourceBundle resourceBundle;
     public static Locale locale;
     public static String propertiesPath;
+    private Alert alert=new Alert(Alert.AlertType.NONE);
 
     @Override
     public void start(Stage stage) throws IOException {
         propertiesPath = String.format("%s\\Documents\\NeuroNavigator\\config.properties", System.getProperty("user.home"));
         createProperties();
-
         locale = new Locale(properties.getProperty("lang"), properties.getProperty("country"));
         resourceBundle = ResourceBundle.getBundle("strings", locale);
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"), resourceBundle);
@@ -47,8 +48,8 @@ public class MainApplication extends Application {
                 FileOutputStream fos = new FileOutputStream(propertiesPath);
                 properties=new Properties();
                 properties.setProperty("configured","false");
-                properties.setProperty("country","ES");
-                properties.setProperty("lang","es");
+                properties.setProperty("country","EN");
+                properties.setProperty("lang","en");
                 properties.setProperty("ftp_host","");
                 properties.setProperty("ftp_password","");
                 properties.setProperty("ftp_port","");
@@ -60,6 +61,17 @@ public class MainApplication extends Application {
                 properties.setProperty("ddbb_password","");
                 properties.setProperty("ddbb_host","");
                 properties.store(fos,null);
+
+                /*Cargar el idioma de la aplicación*/
+                locale = new Locale(properties.getProperty("lang"), properties.getProperty("country"));
+                resourceBundle = ResourceBundle.getBundle("strings", locale);
+                Locale.setDefault(locale);
+
+                /*Avisar al usuario de que tiene que configurar la aplicación*/
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setTitle(MainApplication.resourceBundle.getString("config_warning"));
+                alert.setContentText(MainApplication.resourceBundle.getString("config_createdProp"));
+                alert.showAndWait();
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {

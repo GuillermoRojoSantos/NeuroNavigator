@@ -42,6 +42,7 @@ public class ConfigController implements Initializable {
     private boolean lang_boxChanged = false;
     private static Alert alert = new Alert(Alert.AlertType.NONE);
     private Validator validatorMongo = new Validator();
+    private Validator validatorFTP = new Validator();
 
     @FXML
     private Button btnCLose;
@@ -191,24 +192,31 @@ public class ConfigController implements Initializable {
 
     @FXML
     void testFTP(ActionEvent event) throws IOException {
-        try {
-            SSHClient client = new SSHClient();
-            client.addHostKeyVerifier(new OpenSSHKnownHosts(new File(String.format("%s/.ssh/known_hosts", System.getProperty("user.home")))));
-            client.connect(ftp_host.getText(), Integer.parseInt(ftp_port.getText()));
-            client.authPassword(ftp_user.getText(), ftp_password.getText());
-
-            if(client.isConnected()){
-
-                alert.setAlertType(Alert.AlertType.CONFIRMATION);
-                alert.setTitle(MainApplication.resourceBundle.getString("config_success_tittle"));
-                alert.setContentText(MainApplication.resourceBundle.getString("config_FTP_answerOK"));
-                alert.show();
-            }
-        } catch (Exception e) {
+        if (!validatorFTP.validate()){
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
-            alert.setContentText(MainApplication.resourceBundle.getString("config_FTP_answerWrong"));
-            alert.show();
+            alert.setContentText(MainApplication.resourceBundle.getString("config_errors_checkFields"));
+            alert.showAndWait();
+        }else {
+            try {
+                SSHClient client = new SSHClient();
+                client.addHostKeyVerifier(new OpenSSHKnownHosts(new File(String.format("%s/.ssh/known_hosts", System.getProperty("user.home")))));
+                client.connect(ftp_host.getText(), Integer.parseInt(ftp_port.getText()));
+                client.authPassword(ftp_user.getText(), ftp_password.getText());
+
+                if(client.isConnected()){
+
+                    alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle(MainApplication.resourceBundle.getString("config_success_tittle"));
+                    alert.setContentText(MainApplication.resourceBundle.getString("config_FTP_answerOK"));
+                    alert.show();
+                }
+            } catch (Exception e) {
+                alert.setAlertType(Alert.AlertType.ERROR);
+                alert.setTitle(MainApplication.resourceBundle.getString("config_errors_title"));
+                alert.setContentText(MainApplication.resourceBundle.getString("config_FTP_answerWrong"));
+                alert.show();
+            }
         }
     }
 
@@ -398,6 +406,36 @@ public class ConfigController implements Initializable {
                 c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
             }
         }).decorates(colection).immediate();
+
+        validatorFTP.createCheck().dependsOn("host", ftp_host.textProperty()).withMethod(c -> {
+            String string = c.get("host");
+            if (string.length() == 0) {
+                c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
+            }
+        }).decorates(ftp_host).immediate();
+
+        validatorFTP.createCheck().dependsOn("port", ftp_port.textProperty()).withMethod(c -> {
+            String string = c.get("port");
+            if (string.length() == 0) {
+                c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
+            }
+        }).decorates(ftp_port).immediate();
+
+        validatorFTP.createCheck().dependsOn("user", ftp_user.textProperty()).withMethod(c -> {
+            String string = c.get("user");
+            if (string.length() == 0) {
+                c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
+            }
+        }).decorates(ftp_user).immediate();
+
+        validatorFTP.createCheck().dependsOn("password", ftp_password.textProperty()).withMethod(c -> {
+            String string = c.get("password");
+            if (string.length() == 0) {
+                c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
+            }
+        }).decorates(ftp_password).immediate();
+
+
     }
 
     private void fillInputs() {
