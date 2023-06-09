@@ -9,13 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28705f35-9d43-414b-bcb0-d965b183f6ff" name="Changes" comment="Added FTPUtilsInterface for making changes to FTPUtils easier in the future">
+    <list default="true" id="28705f35-9d43-414b-bcb0-d965b183f6ff" name="Changes" comment="Cambios menores respecto a como la app responde a la primera apertura">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/ConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/main/neuronavigator/controllers/ConfigController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/strings_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/strings_es.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_es.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/strings_fr.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/strings_fr.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,7 +262,8 @@
       <workItem from="1685818341829" duration="1124000" />
       <workItem from="1685911187038" duration="3314000" />
       <workItem from="1686048489589" duration="7317000" />
-      <workItem from="1686309260437" duration="3127000" />
+      <workItem from="1686309260437" duration="4251000" />
+      <workItem from="1686325755601" duration="1397000" />
     </task>
     <task id="LOCAL-00001" summary="Añadido contenido para la internacionalización de la aplicación y funcionalidad de añadir paciente con verificación de campos.">
       <created>1685007690702</created>
@@ -332,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686223718593</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Cambios menores respecto a como la app responde a la primera apertura">
+      <created>1686313428798</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1686313428799</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -363,7 +366,8 @@
     <MESSAGE value="Cambios finales:&#10;Añadido Report de Jasper&#10;Terminada internacionalización&#10;Imports refactorizados" />
     <MESSAGE value="Último Commit" />
     <MESSAGE value="Added FTPUtilsInterface for making changes to FTPUtils easier in the future" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added FTPUtilsInterface for making changes to FTPUtils easier in the future" />
+    <MESSAGE value="Cambios menores respecto a como la app responde a la primera apertura" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios menores respecto a como la app responde a la primera apertura" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

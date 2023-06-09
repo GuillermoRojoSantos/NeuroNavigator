@@ -58,7 +58,7 @@
    <center>
       <Group fx:id="holderGroup" blendMode="MULTIPLY" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane fx:id="holderLang" layoutX="12.0" prefHeight="485.0" prefWidth="498.0" visible="false">
+            <AnchorPane fx:id="holderLang" layoutX="12.0" prefHeight="485.0" prefWidth="498.0">
                <children>
                   <Group layoutX="175.0" layoutY="45.05078125">
                      <children>
@@ -87,7 +87,7 @@
                   <Button fx:id="ftp_test" layoutX="29.0" layoutY="295.0" mnemonicParsing="false" onAction="#testFTP" text="%config_FTP_test" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="holderBBDD" prefHeight="485.0" prefWidth="498.0">
+            <AnchorPane fx:id="holderBBDD" prefHeight="485.0" prefWidth="498.0" visible="false">
                <children>
                   <Text layoutX="218.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BBDD">
                      <font>
