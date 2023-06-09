@@ -58,10 +58,6 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#addPatient" text="%menu_I_add" />
                   <MenuItem fx:id="addFile" mnemonicParsing="false" onAction="#addAFile" text="%menu_I_addFiles" />
-                  <MenuItem fx:id="deleteFile" mnemonicParsing="false" onAction="#deleteAFile" text="%menu_I_deleteFiles">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="DELETE" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
                   <MenuItem fx:id="downloadFile" mnemonicParsing="false" onAction="#descargar" text="%menu_I_downloadFile" />
                     </items>
                 </Menu>
@@ -71,6 +67,10 @@
                   <MenuItem fx:id="itemDelete" mnemonicParsing="false" onAction="#delete" text="%menu_I_delete">
                      <accelerator>
                         <KeyCodeCombination alt="ANY" code="DELETE" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="deleteFile" mnemonicParsing="false" onAction="#deleteAFile" text="%menu_I_deleteFiles">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="DELETE" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                     </items>
                 </Menu>
