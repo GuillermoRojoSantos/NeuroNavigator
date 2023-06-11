@@ -191,17 +191,39 @@ public class InfoPatientController implements Initializable {
             }
         }).decorates(telefono).immediate();
         validator.createCheck().dependsOn("nombre",nombre.textProperty()).withMethod(c->{
-            String telefono = c.get("nombre");
-            if(telefono.isEmpty()){
+            String nombre = c.get("nombre");
+            if(nombre.isEmpty()){
                 c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
             }
-        }).decorates(telefono).immediate();
+        }).decorates(nombre).immediate();
         validator.createCheck().dependsOn("apellido",apellido.textProperty()).withMethod(c->{
-            String telefono = c.get("apellido");
-            if(telefono.isEmpty()){
+            String apellido = c.get("apellido");
+            if(apellido.isEmpty()){
                 c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
             }
-        }).decorates(telefono).immediate();
+        }).decorates(apellido).immediate();
+        validator.createCheck().dependsOn("direccion",direccion.textProperty()).withMethod(c->{
+            String direccion = c.get("direccion");
+            if(direccion.isEmpty()){
+                c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
+            }
+        }).decorates(direccion).immediate();
+        validator.createCheck().dependsOn("ocupacion",ocupacion.textProperty()).withMethod(c->{
+            String ocupacion = c.get("ocupacion");
+            if(ocupacion.isEmpty()){
+                c.error(MainApplication.resourceBundle.getString("config_errors_empty"));
+            }
+        }).decorates(ocupacion).immediate();
+        validator.createCheck().dependsOn("birth", birth.valueProperty()).withMethod(c -> {
+            LocalDate userDate = c.get("birth");
+            try {
+                if (userDate.isAfter(today)) {
+                    c.error(MainApplication.resourceBundle.getString("add_errors_date1"));
+                }
+            } catch (Exception e) {
+                c.error(MainApplication.resourceBundle.getString("add_errors_emptyField"));
+            }
+        }).decorates(birth).immediate();
     }
 
     public void setPacientesListener(PacientesListener pacientesListener) {
